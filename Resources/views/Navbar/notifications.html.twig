@@ -1,0 +1,18 @@
+<li class="nav-item dropdown notifications-menu">
+    <a href="#" class="nav-link" data-toggle="dropdown">
+        <i class="far fa-bell"></i>
+        <span class="badge badge-warning navbar-badge">{{ total }}</span>
+    </a>
+    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+        <span class="dropdown-item dropdown-header">{{ 'You have %count% notifications'|trans({'%count%':total}, 'AdminLTEBundle') }}</span>
+        {% for notice in notifications %}
+            <div class="dropdown-divider"></div>
+            <a href="{{ path('adminlte_notification'|route_alias, {'id': notice.identifier}) }}" class="dropdown-item">
+                <i class="{{ notice.icon }} {{ notice.type|text_type }} mr-2"></i> {{ notice.message }}
+                {#<span class="float-right text-muted text-sm">3 mins</span>#}
+            </a>
+        {% endfor %}
+        <div class="dropdown-divider"></div>
+        <a href="{{ path('adminlte_notifications'|route_alias) }}" class="dropdown-item dropdown-footer">{{'View all'|trans({}, 'AdminLTEBundle')}}</a>
+    </div>
+</li>

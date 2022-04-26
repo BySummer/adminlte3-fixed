@@ -1,0 +1,50 @@
+{# @var links \KevinPapst\AdminLTEBundle\Model\NavBarUserLink[] #}
+{# @var showProfileLink bool #}
+{# @var showLogoutLink bool #}
+{% import "@AdminLTE/Macros/default.html.twig" as macro %}
+<li class="nav-item dropdown user user-menu">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+        {{ macro.avatar(user.avatar, user.username, 'user-image') }}
+        <span class="d-none d-md-inline hidden-xs">{{ user.name }}</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="max-width: 200px">
+        <!-- User image -->
+        <li class="user-header bg-gradient-primary">
+            {{ macro.avatar(user.avatar, user.username) }}
+          <p>
+                {{ user.name }} - {{ user.title }}
+                {% block member_since %}
+                <small>{{ 'Member since %date%'|trans({'%date%': user.memberSince|date('m.Y') }, 'AdminLTEBundle') }}</small>
+                {% endblock %}
+          </p>
+
+        </li>
+        {% if links %}
+            <!-- Menu Body -->
+            <li class="user-body dropdown-item">
+                {% for link in links %}
+                    <div class="col-xs-4 text-center">
+                        <a href="{{ path(link.path|route_alias, link.parameters) }}">{{ link.title }}</a>
+                    </div>
+                {% endfor %}
+            </li>
+        {% endif %}
+        {% if showLogoutLink or showProfileLink %}
+            <!-- Menu Footer-->
+            <li class="user-footer dropdown-item">
+                {% if showProfileLink %}
+
+                        <a href="{{ path('adminlte_profile'|route_alias, {'id' : user.identifier}) }}"
+                           class="btn btn-default btn-flat">{{ 'Profile'|trans({}, 'AdminLTEBundle') }}</a>
+
+                {% endif %}
+                {% if showLogoutLink %}
+
+                        <a href="{{ logout_path() }}"
+                           class="btn btn-default btn-flat float-right">{{ 'Sign out'|trans({}, 'AdminLTEBundle') }}</a>
+
+                {% endif %}
+            </li>
+        {% endif %}
+    </ul>
+</li>

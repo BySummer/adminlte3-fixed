@@ -1,0 +1,18 @@
+
+// Add an asterisk to the form labels for required fields
+label.required {
+    &:after {
+        content: " *";
+        font-size: 110%;
+    }
+}
+
+// Add a shadow to the login page and show "remember me" label in normal font weight
+body.login-page {
+    .login-card-body {
+        box-shadow: 0px 29px 147.5px 102.5px rgba(0, 0, 0, 0.05), 0px 29px 95px 0px rgba(0, 0, 0, 0.16);
+        label {
+            font-weight: normal;
+        }
+    }
+}
